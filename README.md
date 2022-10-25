@@ -1,1 +1,2 @@
 # FlappySpaceMiniGame
+The game isn't done yet. It is supposed to be a type of flappy bird. I've added horizontal movement because I want to also add vertical obstacles. You can lose by going too much down or too much left. As for October 24th, the vertical obstacles were not yet there, but the base game is functionnal, with a few bugs. It is the first game I am making without tutorial to back it up.
