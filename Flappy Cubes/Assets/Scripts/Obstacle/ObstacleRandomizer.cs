@@ -12,7 +12,7 @@ public class ObstacleRandomizer : MonoBehaviour
     [SerializeField] private GameObject player;
     // [SerializeField] private float despawnTime; // time until the obstacle disappear
 
-    private Transform[] initalpositonObstaclesUp;
+    private Transform[] initalpositionObstaclesUp;
     private Transform[] initalpositionObstaclesDown;
 
     private int obstaclenumber; //for the random selection of an obstacle
@@ -22,12 +22,7 @@ public class ObstacleRandomizer : MonoBehaviour
 
     private void Awake()
     {
-
-        for (int i = 0; i < obstaclesUp.Length; i++)
-        {
-            initalpositonObstaclesUp[i].position = obstaclesUp[i].transform.position;
-            initalpositionObstaclesDown[i].position = obstaclesDown[i].transform.position;
-        }
+        
 
     }
 
@@ -42,7 +37,7 @@ public class ObstacleRandomizer : MonoBehaviour
 
     private int ObstacleNumberCheck() //to not get the same number twice
     {
-        obstaclenumber = Random.Range(0, obstaclesUp.Length);
+        obstaclenumber = Random.Range(0, obstaclesUp.Length - 1);
 
         if (obstaclenumber == lastobstaclenumber || obstaclenumber == secondlastnumber)
         {
@@ -51,14 +46,14 @@ public class ObstacleRandomizer : MonoBehaviour
                 if (!obstaclesUp[i].activeInHierarchy)
                     obstaclenumber = i;
 
-                secondlastnumber = lastobstaclenumber;
+                //secondlastnumber = lastobstaclenumber;
 
                 lastobstaclenumber = obstaclenumber;
             }
         }
         else
         {
-            secondlastnumber = lastobstaclenumber;
+            //secondlastnumber = lastobstaclenumber;
 
             lastobstaclenumber = obstaclenumber;
         }
@@ -70,10 +65,16 @@ public class ObstacleRandomizer : MonoBehaviour
     {
         for (int i = 0; i < obstaclesUp.Length; i++)
         {
+            //reset of Obstacle
             obstaclesUp[i].SetActive(false);
             obstaclesDown[i].SetActive(false);
+
+            //reset of Obstacle Speed
+            obstaclesUp[i].GetComponent<ObstacleMovement>().SpeedIncrease(0);
+            obstaclesDown[i].GetComponent<ObstacleMovement>().SpeedIncrease(0);
             
         }
+        
         player.SetActive(true);
 
         player.transform.position = new Vector3(-3, 0, 0); //reset player position
@@ -84,5 +85,17 @@ public class ObstacleRandomizer : MonoBehaviour
         
         SceneManager.instance.GameOverScreenAppear(false); // take off game over screen
         SceneManager.instance.StartinGameAppear(false);
+
+        ScoreManager.instance.ResetScore();
+        ScoreManager.instance.ResetScoreAtWhichSpeedIncrease();
+    }
+
+    public void SpeedIncreaseObstacleSelector(float _speedIncreaseIntermediateValue)
+    {
+        for (int i = 0; i < obstaclesUp.Length; i++)
+        {
+            obstaclesUp[i].GetComponent<ObstacleMovement>().SpeedIncrease(_speedIncreaseIntermediateValue);
+            obstaclesDown[i].GetComponent<ObstacleMovement>().SpeedIncrease(_speedIncreaseIntermediateValue);
+        }
     }
 }

@@ -44,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
         if (transform.position.x <= -8.78 || transform.position.y <= -7)
         {
             SceneManager.instance.GameOverScreenAppear(true);
+
+            ScoreManager.instance.SetHighScore();
             
             gameObject.SetActive(false);
         }

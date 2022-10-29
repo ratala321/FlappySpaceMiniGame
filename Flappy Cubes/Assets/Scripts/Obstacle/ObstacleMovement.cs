@@ -10,6 +10,8 @@ public class ObstacleMovement : MonoBehaviour
 
     private float direction = 1; // obstacle will always go to the left
 
+    private float speedUpValue;
+
     private void OnEnable()
     {
         initalpositionx = transform.position.x;
@@ -21,7 +23,7 @@ public class ObstacleMovement : MonoBehaviour
     }
     private void Update()
     {
-        transform.Translate(0f, (direction * speed * Time.deltaTime), 0f); // translate on Y axis positive because of the rotation of the obstacle
+        transform.Translate(0f, (direction * (speed + speedUpValue) * Time.deltaTime), 0f); // translate on Y axis positive because of the rotation of the obstacle
 
         //position reset + object desactivation
         if (transform.position.x <= -9f)
@@ -29,5 +31,10 @@ public class ObstacleMovement : MonoBehaviour
             transform.position = new Vector3 (initalpositionx, transform.position.y, transform.position.z);
             gameObject.SetActive(false);
         }
+    }
+
+    public void SpeedIncrease(float _speedIncreaseValue)
+    {
+        speedUpValue = _speedIncreaseValue;
     }
 }
