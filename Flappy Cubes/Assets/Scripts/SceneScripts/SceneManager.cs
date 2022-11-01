@@ -10,6 +10,7 @@ public class SceneManager : MonoBehaviour
     [SerializeField] private GameObject startingGameUI; 
     private void Awake()
     {
+        Application.targetFrameRate = 60;
         instance = this;
     }
 

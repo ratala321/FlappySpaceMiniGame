@@ -16,15 +16,6 @@ public class ObstacleRandomizer : MonoBehaviour
     private Transform[] initalpositionObstaclesDown;
 
     private int obstaclenumber; //for the random selection of an obstacle
-    private int lastobstaclenumber;
-    
-    private int secondlastnumber; // not working properly yet*
-
-    private void Awake()
-    {
-        
-
-    }
 
     public void ObstacleApparition()
     {
@@ -39,25 +30,16 @@ public class ObstacleRandomizer : MonoBehaviour
     {
         obstaclenumber = Random.Range(0, obstaclesUp.Length - 1);
 
-        if (obstaclenumber == lastobstaclenumber || obstaclenumber == secondlastnumber)
+        if (obstaclesUp[obstaclenumber].activeInHierarchy)
         {
             for (int i = 0; i < obstaclesUp.Length; i++)
             {
                 if (!obstaclesUp[i].activeInHierarchy)
                     obstaclenumber = i;
-
-                //secondlastnumber = lastobstaclenumber;
-
-                lastobstaclenumber = obstaclenumber;
             }
         }
-        else
-        {
-            //secondlastnumber = lastobstaclenumber;
-
-            lastobstaclenumber = obstaclenumber;
-        }
-            return obstaclenumber;
+            
+        return obstaclenumber;
         
     }
 
